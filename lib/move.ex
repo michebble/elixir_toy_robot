@@ -1,5 +1,6 @@
 import Map, only: [merge: 2]
 defmodule Move do
+  @type placement_map :: Types.placement_map
   @moduledoc """
   Documentation for `Move`.
   Determines the toy robot's new x y based on the facing.
@@ -15,7 +16,7 @@ defmodule Move do
       iex> Move.call(%{x: 0, y: 1, facing: :WEST})
       %{x: 0, y: 1, facing: :WEST}
   """
-  @spec call(%{x: integer, y: integer, facing: atom}) :: %{x: integer, y: integer, facing: atom}
+  @spec call(placement_map) :: placement_map
   def call(%{x: x, facing: :EAST} = current_placement) do x + 1 |> update_position(:x, current_placement) end
   def call(%{y: y, facing: :NORTH} = current_placement) do y + 1 |> update_position(:y, current_placement) end
   def call(%{y: y, facing: :SOUTH} = current_placement) do y - 1 |> update_position(:y, current_placement) end
@@ -24,7 +25,7 @@ defmodule Move do
   @spec is_on_board(integer, Range.t) :: boolean
   defp is_on_board(new_position, board_size \\ 0..4) do new_position in board_size end
 
-  @spec update_position(integer, atom, %{x: integer, y: integer, facing: atom}) :: %{x: integer, y: integer, facing: atom}
+  @spec update_position(integer, atom, placement_map) :: placement_map
   defp update_position(new_position, axis, current_placement) do
     if is_on_board(new_position),
       do: merge(current_placement, %{axis => new_position}),
