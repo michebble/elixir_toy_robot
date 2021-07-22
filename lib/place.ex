@@ -12,7 +12,7 @@ defmodule Place do
       %{x: 0, y: 1, facing: :NORTH}
 
   """
-
+  @spec call(String.t) :: %{x: integer, y: integer, facing: atom}
   def call(command) do
     String.trim_leading(command, "PLACE ")
       |> String.split(",")
@@ -20,10 +20,12 @@ defmodule Place do
       |> return_placement()
   end
 
+  @spec transform([String.t, ...]) :: [...]
   defp transform([x, y, facing]) do
     [String.to_integer(x), String.to_integer(y), String.to_atom(facing)]
   end
 
+  @spec return_placement([...]) :: %{x: integer, y: integer, facing: atom}
   defp return_placement([x, y, facing]) do
     %{x: x, y: y, facing: facing}
   end
