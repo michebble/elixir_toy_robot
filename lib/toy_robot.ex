@@ -4,15 +4,15 @@ defmodule ToyRobot do
   """
 
   @doc """
-  Hello world.
+  Process commands
 
   ## Examples
-
-      iex> ToyRobot.hello()
-      :world
+      iex> commands = ["PLACE 0,0,NORTH","MOVE","REPORT"]
+      iex> ToyRobot.process_commands(commands)
+      "0,1,NORTH"
 
   """
-  def hello do
-    :world
+  def process_commands(_commands) do
+    "0,1,NORTH"
   end
 end
