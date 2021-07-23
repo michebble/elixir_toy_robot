@@ -16,9 +16,9 @@ defmodule Place do
   @spec call(String.t) :: placement_map
   def call(command) do
     String.trim_leading(command, "PLACE ")
-      |> String.split(",")
-      |> transform()
-      |> return_placement()
+    |> String.split(",")
+    |> transform()
+    |> return_placement()
   end
 
   @spec transform([String.t, ...]) :: [...]
