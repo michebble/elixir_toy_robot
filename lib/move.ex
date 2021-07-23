@@ -22,13 +22,9 @@ defmodule Move do
   def call(%{y: y, facing: :SOUTH} = current_placement) do y - 1 |> update_position(:y, current_placement) end
   def call(%{x: x, facing: :WEST} = current_placement) do x - 1 |> update_position(:x, current_placement) end
 
-  @spec is_on_board(integer, Range.t) :: boolean
-  defp is_on_board(new_position, board_size \\ 0..4) do new_position in board_size end
-
   @spec update_position(integer, atom, placement_map) :: placement_map
-  defp update_position(new_position, axis, current_placement) do
-    if is_on_board(new_position),
-      do: merge(current_placement, %{axis => new_position}),
-      else: current_placement
+  defp update_position(new_position, axis, current_placement) when new_position in 0..4 do
+    merge(current_placement, %{axis => new_position})
   end
+  defp update_position(_new_position, _axis, current_placement) do current_placement end
 end
